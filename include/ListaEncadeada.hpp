@@ -14,9 +14,11 @@ class ListaEncadeada
         ~ListaEncadeada();
 
 
-        void adicionar(int caminho);
+        void adicionar(int caminho,int peso);
 
         No* obterCabeca();
+
+        void print();
 
 };
 

@@ -3,26 +3,36 @@
 
 No::No()
 {
-    this->prox = nullptr;
+    this->_prox = nullptr;
 }
 
 
 void No::setcounteudo(int caminho)
 {
-    destino  = caminho;
+    _destino  = caminho;
 }
 
 
 void No::setProx(No* p){
-    prox = p;
+    _prox = p;
 }
 
 int No::getdestino()
 {
-    return destino;
+    return _destino;
 }
 
 No* No::getProx()
 {
-    return prox;
+    return _prox;
+}
+
+int No::getPeso()
+{
+    return _peso;
+}
+
+void No::setPeso(int peso)
+{
+    _peso = peso;
 }

@@ -6,9 +6,11 @@
 
 class No{
     private:
-        int destino;
+        int _destino;
 
-        No* prox;
+        int _peso;
+
+        No* _prox;
 
     public:
 
@@ -21,6 +23,10 @@ class No{
         int getdestino();
 
         No* getProx();
+
+        int getPeso();
+        
+        void setPeso(int peso);
 
 };
 
