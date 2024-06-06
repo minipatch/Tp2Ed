@@ -1,30 +1,35 @@
 #ifndef GRAFO_HPP
-#define GRAFO_HPP
 
 #include <iostream>
-#include "ListaEncadeada.hpp"
+#include <no.hpp>
 
 
-class Grafo
-{
+class Grafo{
     private:
-        int Vertices;
-        ListaEncadeada* listadj; 
+        int maxClareiras;
+
+        bool  isportal;
+
+        int portal;
+
+        int trilhas;
+
+        int peso;
+
+        No* vetor;
+        
+        int** matrizAdjacente;
+
 
     public:
 
-        Grafo(int v);
+        Grafo(int Clareiras,int trilhas,int portal);
 
         ~Grafo();
 
-        void adicionaAresta(int v1,int v2,int peso);
+        bool getisPortal(int linha,int coluna);    
 
-        ListaEncadeada obterListaadj(int v)const;
-
-        int obterNumeroV()const;
-
-        void exibirGrafo();
-
+        void gerargrafo(int vertice,int peso);
 };
 
 
@@ -33,6 +38,4 @@ class Grafo
 
 
 
-
-
-#endif 
+#endif

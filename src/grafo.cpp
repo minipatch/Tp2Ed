@@ -1,48 +1,56 @@
 #include "grafo.hpp"
 
 
-
-Grafo::Grafo(int v)
+Grafo::Grafo(int Clareiras,int trilhas,int portal)
 {
-    this-> Vertices = v;
-    listadj = new ListaEncadeada[Vertices];
-}
+    this-> maxClareiras = Clareiras;
+    this-> trilhas = trilhas;
+    this-> portal = portal;
+    this-> isportal = false;
 
+    vetor = new No[maxClareiras]; 
+
+    matrizAdjacente = new int *[maxClareiras];
+
+    for(int i=0;i<maxClareiras;i++)
+    {
+        matrizAdjacente[i] = new int[maxClareiras];
+    }
+}
 
 Grafo::~Grafo()
 {
-    delete[] listadj;
-}
+    delete[] vetor;
 
-
-void Grafo::adicionaAresta(int v1,int v2,int peso)
-{
-    listadj[v1].adicionar(v2,peso);
-    listadj[v2].adicionar(v1,peso);
-}
-
-ListaEncadeada Grafo::obterListaadj(int v)const
-{
-    return listadj[v];    
-}
-
-int Grafo::obterNumeroV()const 
-{
-    return Vertices;
-}
-
-void Grafo::exibirGrafo()
-{
-    for(int i=0;i<Vertices;i++)
-    {
-        std::cout<<i<<": ";
-        No* temp = listadj[i].obterCabeca();
-        while(temp){
-            std::cout <<"("<< temp->getdestino()<<","<<temp->getPeso()<<")";
-            temp = temp->getProx();
-        }
-    
-    std::cout<<std::endl;
+    for(int i=0;i<maxClareiras;i++){
+        delete[] matrizAdjacente[i];
     }
 
+    delete[] matrizAdjacente;
 }
+
+bool Grafo::getisPortal(int linha,int coluna){
+    if(matrizAdjacente[linha][coluna] == 0){
+        return true;
+    }
+    else if(matrizAdjacente[linha][coluna] > 0){
+        return false;
+    }
+    else{
+        return false;
+    }
+}
+
+void Grafo::gerargrafo(int vertice,int peso)
+{
+    for(int i=0;i<maxClareiras;i++){
+        for(int j=0;j<maxClareiras;j++){
+            matrizAdjacente[i][j] = peso;
+        }
+    }
+}
+    
+
+
+
+

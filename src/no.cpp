@@ -1,38 +1,34 @@
 #include "no.hpp"
 
 
-No::No()
+No::No(){}
+
+
+std::string No::getClareira()
 {
-    this->_prox = nullptr;
+    return _clareira;
 }
 
-
-void No::setcounteudo(int caminho)
+void No::setClareira(std::string Clareira)
 {
-    _destino  = caminho;
+    _clareira = Clareira;
 }
 
 
-void No::setProx(No* p){
-    _prox = p;
-}
-
-int No::getdestino()
+void No::setProx(No* prox)
 {
-    return _destino;
+    _prox = prox;
 }
 
-No* No::getProx()
+No* No::getprox()
 {
     return _prox;
 }
 
-int No::getPeso()
+void No::setProx(No* prox)
 {
-    return _peso;
+    _prox = prox;
 }
 
-void No::setPeso(int peso)
-{
-    _peso = peso;
-}
+
+

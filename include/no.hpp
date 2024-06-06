@@ -1,38 +1,26 @@
 #ifndef NO_HPP
 #define NO_HPP
 
-
 #include <iostream>
+#include <string>
 
 class No{
     private:
-        int _destino;
-
-        int _peso;
-
         No* _prox;
+        std::string _clareira;
 
     public:
-
         No();
 
-        void setcounteudo(int counteudo);
+        std::string getClareira();
 
-        void setProx(No* p);
 
-        int getdestino();
+        void setClareira(std::string Clareira);
 
-        No* getProx();
+        No* getprox();
 
-        int getPeso();
-        
-        void setPeso(int peso);
 
+        void setProx(No* prox);
 };
-
-
-
-
-
 
 #endif
