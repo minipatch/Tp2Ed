@@ -1,56 +1,29 @@
 #include "grafo.hpp"
 
-
-Grafo::Grafo(int Clareiras,int trilhas,int portal)
+Grafo::Grafo(int verticesmax)
 {
-    this-> maxClareiras = Clareiras;
-    this-> trilhas = trilhas;
-    this-> portal = portal;
-    this-> isportal = false;
+    this->verticesMax =  verticesMax;
 
-    vetor = new No[maxClareiras]; 
 
-    matrizAdjacente = new int *[maxClareiras];
+    matrizAdjacencia = new int*[verticesMax];
 
-    for(int i=0;i<maxClareiras;i++)
-    {
-        matrizAdjacente[i] = new int[maxClareiras];
+    for(int i=0;i<verticesMax;i++){
+        matrizAdjacencia[i] = new int[verticesMax];
     }
 }
 
-Grafo::~Grafo()
+Grafo::~Grafo(){
+    for(int i=0;i<verticesMax;i++){
+        delete[] matrizAdjacencia[i];
+    }
+
+    delete[]matrizAdjacencia;
+}
+
+void Grafo::addEdge(int u,int verticesmax,int weight)
 {
-    delete[] vetor;
+    Edge* ed = new Edge(verticesMax,weight);
 
-    for(int i=0;i<maxClareiras;i++){
-        delete[] matrizAdjacente[i];
-    }
-
-    delete[] matrizAdjacente;
-}
-
-bool Grafo::getisPortal(int linha,int coluna){
-    if(matrizAdjacente[linha][coluna] == 0){
-        return true;
-    }
-    else if(matrizAdjacente[linha][coluna] > 0){
-        return false;
-    }
-    else{
-        return false;
-    }
-}
-
-void Grafo::gerargrafo(int vertice,int peso)
-{
-    for(int i=0;i<maxClareiras;i++){
-        for(int j=0;j<maxClareiras;j++){
-            matrizAdjacente[i][j] = peso;
-        }
-    }
-}
-    
-
-
+}   
 
 

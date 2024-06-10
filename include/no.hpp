@@ -4,23 +4,23 @@
 #include <iostream>
 #include <string>
 
-class No{
+namespace NGFO{
+
+    class No
+    {
     private:
-        No* _prox;
-        std::string _clareira;
+        int _clareira;
 
     public:
         No();
 
-        std::string getClareira();
+        int getClareira();
 
+        void setClareira(int Clareira);
 
-        void setClareira(std::string Clareira);
+        No *getprox();
 
-        No* getprox();
-
-
-        void setProx(No* prox);
-};
-
+        void setProx(No *prox);
+    };
+}
 #endif

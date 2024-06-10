@@ -1,35 +1,25 @@
 #ifndef GRAFO_HPP
 
 #include <iostream>
-#include <no.hpp>
-
+#include "fila.hpp"
+#include "edge.hpp"
 
 class Grafo{
     private:
-        int maxClareiras;
+        int** matrizAdjacencia;
 
-        bool  isportal;
-
-        int portal;
-
-        int trilhas;
-
-        int peso;
-
-        No* vetor;
-        
-        int** matrizAdjacente;
-
-
+        int verticesMax; 
     public:
 
-        Grafo(int Clareiras,int trilhas,int portal);
+        Grafo(int verticesmax);
 
         ~Grafo();
 
-        bool getisPortal(int linha,int coluna);    
+        void addEdge(int u,int verticesmax,int weight);
 
-        void gerargrafo(int vertice,int peso);
+
+        
+        
 };
 
 
