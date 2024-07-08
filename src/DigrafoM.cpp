@@ -1,12 +1,10 @@
 #include "DigrafoM.hpp"
 #include <iostream>
 
-DigrafoM::DigrafoM(int numVertices) {
-    this->_numVertices = numVertices;
-
+DigrafoM::DigrafoM(int numVertices) : _numVertices(numVertices) {
     matriz = new int*[_numVertices];
     for (int i = 0; i < _numVertices; i++) {
-        matriz[i] = new int[_numVertices];
+        matriz[i] = new int[_numVertices]();
     }
 }
 
@@ -19,9 +17,9 @@ DigrafoM::~DigrafoM() {
     delete[] matriz;
 }
 
-void DigrafoM::adicionaaresta(int origem, int destino, int peso) {
+void DigrafoM::adicionaaresta(int origem, int destino) {
     if (origem >= 0 && origem < _numVertices && destino >= 0 && destino < _numVertices) {
-        matriz[origem][destino] = peso;
+        matriz[origem][destino] = 1;
     } else {
         std::cerr << "Erro: índice de vértice inválido" << std::endl;
     }
@@ -53,11 +51,10 @@ void DigrafoM::print() const {
     }
 }
 
-
-void DigrafoM::ObterVizinhos(int vertice,int *vizinhos,int *pesos,int& count) const{
-    count=0;
-    for(int i=0;i<_numVertices;i++){
-        if(matriz[vertice][i] != 0){
+void DigrafoM::ObterVizinhos(int vertice, int* vizinhos, int* pesos, int& count) const {
+    count = 0;
+    for (int i = 0; i < _numVertices; i++) {
+        if (matriz[vertice][i] != 0) {
             vizinhos[count] = i;
             pesos[count] = matriz[vertice][i];
             count++;
@@ -65,6 +62,6 @@ void DigrafoM::ObterVizinhos(int vertice,int *vizinhos,int *pesos,int& count) co
     }
 }
 
-int DigrafoM::getVertices() const{
+int DigrafoM::getVertices() const {
     return _numVertices;
 }

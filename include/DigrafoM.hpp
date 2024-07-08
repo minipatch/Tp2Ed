@@ -17,7 +17,7 @@ class DigrafoM{
 
         ~DigrafoM();
 
-        void adicionaaresta(int origem,int destino,int peso);
+        void adicionaaresta(int origem,int destino);
 
         void removearesta(int origem,int destino);
 

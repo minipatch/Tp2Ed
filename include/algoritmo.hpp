@@ -11,8 +11,11 @@ class Distrah{
         Fila _f;
         DigrafoM _grafo;
 
+        int _tam;
+
     public:
         Distrah();
+
 
         void alg(const DigrafoM& grafo,int origem,int destino);
         void imprimirCaminho(int destino,int* prev,int origem);
