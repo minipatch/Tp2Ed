@@ -1,42 +1,43 @@
-#ifndef DIGRAFO_HPP
-#define DIGRAFO_HPP
+#ifndef GRAFO_HPP
+#define GRAFO_HPP
 
 #include <iostream>
-#include <iomanip>
+
+struct Ponto{
+    double x;
+    double y;
+};
+
 
 class DigrafoM{
     private:
-        int** matriz;
-        int _numVertices;
-
+        int _numvertice;
+        Ponto  *p;
+        double **Matriz;
 
     public:
-        DigrafoM(int numvertices);
 
-        DigrafoM();
+        DigrafoM(int numvertices);
 
         ~DigrafoM();
 
-        void adicionaaresta(int origem,int destino);
+        void adicionarAresta();
 
-        void removearesta(int origem,int destino);
+        void AdicionaPonto(int vertice,double x,double y);
 
-        bool existearesta(int origem,int destino);
+        void AdicionaAresta(int origem,int destino);
+
+        void AdicionaPortal(int origem,int destino);
+
+        double CalculaDistancia(int p1,int p2);
 
         void print() const;
 
-        void adicionapeso(int peso,int destino,int origem);
+        int getVertice() const;
 
-
-        int getVertices() const;
-
-        void ObterVizinhos(int vertice,int *vizinhos,int *pesos,int& count) const;
-
-        void disktra();
 };
 
 
 
 
-
-#endif
+#endif 

@@ -1,77 +1,61 @@
 #include "DigrafoM.hpp"
 
-DigrafoM::DigrafoM(int numVertices) : _numVertices(numVertices) {
-    matriz = new int*[_numVertices];
-    for (int i = 0; i < _numVertices; i++) {
-        matriz[i] = new int[_numVertices]();
+DigrafoM::DigrafoM(int numvertices){
+
+    this->_numvertice = numvertices;
+
+    // inicializando a matriz dinamicamente
+    Matriz = new double*[_numvertice];
+
+    for(int i=0;i<_numvertice;i++){
+        Matriz[i] = new double[_numvertice];
     }
-}
-
-DigrafoM::DigrafoM(){}
-
-DigrafoM::~DigrafoM() {
-    for (int i = 0; i < _numVertices; i++) {
-        delete[] matriz[i];
-    }
-    delete[] matriz;
-}
-
-void DigrafoM::adicionaaresta(int origem, int destino) {
-    if (origem >= 0 && origem < _numVertices && destino >= 0 && destino < _numVertices) {
-        matriz[origem][destino] = 1;
-    } else {
-        std::cerr << "Erro: índice de vértice inválido" << std::endl;
-    }
-}
-
-void DigrafoM::removearesta(int origem, int destino) {
-    if (origem >= 0 && origem < _numVertices && destino >= 0 && destino < _numVertices) {
-        matriz[origem][destino] = 0;
-    } else {
-        std::cerr << "Erro: índice de vértice inválido" << std::endl;
-    }
-}
-
-bool DigrafoM::existearesta(int origem, int destino) {
-    if (origem >= 0 && origem < _numVertices && destino >= 0 && destino < _numVertices) {
-        return matriz[origem][destino] != 0;
-    } else {
-        std::cerr << "Índice inválido" << std::endl;
-        return false;
-    }
-}
-
-void DigrafoM::print() const {
-    for (int i = 0; i < _numVertices; i++) {
-        for (int j = 0; j < _numVertices; j++) {
-            std::cout << matriz[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
-void DigrafoM::ObterVizinhos(int vertice, int* vizinhos, int* pesos, int& count) const {
-    count = 0;
-    for (int i = 0; i < _numVertices; i++) {
-        if (matriz[vertice][i] != 0) {
-            vizinhos[count] = i;
-            pesos[count] = matriz[vertice][i];
-            count++;
+    
+    // iniciliazando grafo com arestas inexistentes
+    for(int i=0;i<_numvertice;i++){
+        for(int j=0;j<_numvertice;j++){
+            Matriz[i][j] = -1;
         }
     }
+
+    p = new Ponto[_numvertice];
 }
 
-int DigrafoM::getVertices() const {
-    return _numVertices;
-}
 
-void DigrafoM::adicionapeso(int peso,int destino,int origem){
-    if(origem>=0 && origem<_numVertices && destino >= 0 && destino<_numVertices)
-    {
-        matriz[origem][destino] = peso;
+DigrafoM::~DigrafoM(){
+    for(int i=0;i<_numvertice;i++){
+        delete[] Matriz[i];
     }
+    delete[] Matriz;
+}
 
+// adiciona os pontos nas arestas 
+void DigrafoM::AdicionaPonto(int vertice,double x,double y){
+    p[vertice].x = x;
+    p[vertice].y = y;
+}
+
+// função adicionna e calcula peso para colocar nas arestas
+void DigrafoM::AdicionaAresta(int origem,int destino){
+    if(origem >= 0 && origem < _numvertice && destino >= 0 && destino <_numvertice){
+        Matriz[origem][destino] = CalculaDistancia(origem,destino);
+    }
     else{
-        std::cerr<<"valor do destino e da origem invalido"<<std::endl;
+        std::cerr<<"indice das vertices invalidos"<<std::endl;
     }
 }
+
+
+void DigrafoM::AdicionaPortal(int origem,int destino){
+    if(origem >= 0 && origem < _numvertice && destino >= 0 && destino < _numvertice){
+        Matriz[origem][destino] = 0;
+    }
+    else{
+        std::cerr<<"indice das vertices invalidas "<<std::endl;
+    }
+}
+
+
+
+
+

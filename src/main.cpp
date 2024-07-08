@@ -21,7 +21,7 @@ int Calculapeso(par& a1,par& a2){
 int main() {
 
 
-    DigrafoM grafo;
+    // DigrafoM grafo;
 
     std::string linha;
     std::ifstream file("arquivo de leitura");
@@ -56,7 +56,7 @@ int main() {
 
     for(int i=0;i<numaresta;i++){
         file>>u>>v;
-        grafo.adicionaaresta(u,v);
+        // grafo.adicionaaresta(u,v);
     }
 
 
@@ -64,30 +64,30 @@ int main() {
 
     // copia a energia e limite de portal que pode ser ultilizado
 
-    int limitPortal;
+    // int limitPortal;
 
-    double energia;
+    // double energia;
 
-    file>>energia>>limitPortal;
+    // file>>energia>>limitPortal;
 
 
 
     // calcula peso
-    par d1,d2;
-    int peso;
+    // par d1,d2;
+    // int peso;
 
     
-    d1 = aux.remove();
-    d2 = aux.remove();
+    // d1 = aux.remove();
+    // d2 = aux.remove();
 
-    peso = Calculapeso(d1,d2);
+    // peso = Calculapeso(d1,d2);
 
 
 
-//  usa o algoritmo de distrah para ver maior distancia
-    Distrah d;
+    //usa o algoritmo de distrah para ver maior distancia
+    // Distrah d;
 
-    d.alg(grafo,0,2);
+    // d.alg(grafo,0,2);
 
 
     return 0;
