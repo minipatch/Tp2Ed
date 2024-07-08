@@ -45,7 +45,7 @@ void DigrafoM::AdicionaAresta(int origem,int destino){
     }
 }
 
-
+// essa função adiona os portais no grafo
 void DigrafoM::AdicionaPortal(int origem,int destino){
     if(origem >= 0 && origem < _numvertice && destino >= 0 && destino < _numvertice){
         Matriz[origem][destino] = 0;
