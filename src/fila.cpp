@@ -33,7 +33,7 @@ void FilaAux::insert(double x,double y){
 
     _fin = (_fin+1) % _tam;
 
-    _count += 1;
+    _count ++;
 }
 
 

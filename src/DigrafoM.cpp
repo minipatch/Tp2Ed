@@ -1,5 +1,4 @@
 #include "DigrafoM.hpp"
-#include <iostream>
 
 DigrafoM::DigrafoM(int numVertices) : _numVertices(numVertices) {
     matriz = new int*[_numVertices];
@@ -64,4 +63,15 @@ void DigrafoM::ObterVizinhos(int vertice, int* vizinhos, int* pesos, int& count)
 
 int DigrafoM::getVertices() const {
     return _numVertices;
+}
+
+void DigrafoM::adicionapeso(int peso,int destino,int origem){
+    if(origem>=0 && origem<_numVertices && destino >= 0 && destino<_numVertices)
+    {
+        matriz[origem][destino] = peso;
+    }
+
+    else{
+        std::cerr<<"valor do destino e da origem invalido"<<std::endl;
+    }
 }

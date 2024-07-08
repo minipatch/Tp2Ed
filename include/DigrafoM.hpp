@@ -25,6 +25,8 @@ class DigrafoM{
 
         void print() const;
 
+        void adicionapeso(int peso,int destino,int origem);
+
 
         int getVertices() const;
 

@@ -8,6 +8,14 @@
 #include <cctype> // Para isdigit
 #include "algoritmo.hpp"
 #include "fila.hpp"
+#include <cmath>
+
+
+int Calculapeso(par& a1,par& a2){
+    int dx = a2.x - a1.x;
+    int dy = a2.y - a1.y;
+    return std::sqrt(dx*dx + dy*dy);
+}
 
 
 int main() {
@@ -26,7 +34,7 @@ int main() {
         return 1;
     }
     
-
+    //copia o numero de vertices,numero de arestas,numero de portais 
     file>>numvertices>>numaresta>>portais;
 
     FilaAux aux(numvertices);
@@ -36,32 +44,47 @@ int main() {
     double x;
     double y;
 
+    // copia a posição dos pontos com relação a plano
     for(int i=0;i<numvertices;i++){
         file>>x>>y;
         aux.insert(x,y);
     }
 
+    // fala onde tem aresta
     int u,v;
-    
+
+
     for(int i=0;i<numaresta;i++){
         file>>u>>v;
         grafo.adicionaaresta(u,v);
     }
 
 
-    // for(int i=0;i<portais;i++){
-    //     file>>u>>v;
-    //     aux2.insert(u,v);
-    // }
 
 
-    double energia;
+    // copia a energia e limite de portal que pode ser ultilizado
 
     int limitPortal;
 
-    file>>energia>>limitPortal;
-    
+    double energia;
 
+    file>>energia>>limitPortal;
+
+
+
+    // calcula peso
+    par d1,d2;
+    int peso;
+
+    
+    d1 = aux.remove();
+    d2 = aux.remove();
+
+    peso = Calculapeso(d1,d2);
+
+
+
+//  usa o algoritmo de distrah para ver maior distancia
     Distrah d;
 
     d.alg(grafo,0,2);
