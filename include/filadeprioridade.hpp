@@ -5,7 +5,7 @@
 #include <stdexcept>
 
 struct Elemento{
-    int distancia;
+    double distancia;
     int vertice;
 };
 

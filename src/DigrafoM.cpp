@@ -41,7 +41,7 @@ void DigrafoM::AdicionaAresta(int origem,int destino){
         Matriz[origem][destino] = CalculaDistancia(origem,destino);
     }
     else{
-        std::cerr<<"indice das vertices invalidos"<<std::endl;
+        std::cerr<<"indice das vertices invalidos1"<<std::endl;
     }
 }
 
@@ -55,7 +55,37 @@ void DigrafoM::AdicionaPortal(int origem,int destino){
     }
 }
 
+double DigrafoM::CalculaDistancia(int p1,int p2){
+    double dx =  p[p2].x - p[p1].x;
+    double dy = p[p2].y - p[p1].y;
+
+    return std::sqrt(dx*dx+dy*dy);
+}
 
 
+void DigrafoM::print() const{
+    for(int i=0;i<_numvertice;i++){
+        for(int j =0;j<_numvertice;j++){
+            std::cout<<Matriz[i][j]<<" ";
+        }
+        std::cout<<std::endl;
+    }
+}
+
+int DigrafoM::getVertice()const{
+    return _numvertice;
+}
+
+void DigrafoM::setEnergia(double s){
+    _energia = s;
+}
+
+void DigrafoM::setQtdPortal(int q){
+    _qtsportais = q;
+}
+
+double** DigrafoM::getMatriz(){
+    return Matriz;
+}
 
 

@@ -5,90 +5,125 @@
 #include "DigrafoF.hpp"
 #include <filadeprioridade.hpp>
 #include <string>
-#include <cctype> // Para isdigit
-#include "algoritmo.hpp"
-#include "fila.hpp"
 #include <cmath>
+#include <limits>
 
+void dijkstra(DigrafoM &grafo,int origem,int fim){
+    int n = grafo.getVertice();
+    double** Matriz = grafo.getMatriz();
 
-int Calculapeso(par& a1,par& a2){
-    int dx = a2.x - a1.x;
-    int dy = a2.y - a1.y;
-    return std::sqrt(dx*dx + dy*dy);
+    //array de distancia e  visitados
+
+    double* distancia = new double[n];
+    bool* visitado = new bool[n];
+
+    for(int i=0;i<n;i++){
+        distancia[i] = std::numeric_limits<double>::infinity();
+        visitado[i] = false;
+    }
+
+    // inicializa a distancia das vertices inicial para 0
+
+    Fila fila(n);
+
+    fila.insert({0,0});
+
+    while(!fila.Vazio()){
+        Elemento u = fila.Limpa();
+        int vertice_u = u.vertice;
+
+        if(visitado[vertice_u]){
+            continue;
+        }
+
+        visitado[vertice_u] = true;
+
+        for(int v=0;v<n;v++){
+            double peso = Matriz[vertice_u][v];
+            if(peso  != -1 && !visitado[v] && distancia[vertice_u] + peso < distancia[v]){
+                distancia[v] =  distancia[vertice_u] + peso;
+                fila.insert({distancia[v],v});
+            }
+        }
+    }
+
+    for(int i=0;i<n;i++){
+        std::cout<<" a  distancia do vertice 0 para o vertice " << i <<": "<<distancia[i]<< std::endl;
+    }
+
+    delete[] distancia;
+    delete[] visitado;
 }
+
 
 
 int main() {
 
 
-    // DigrafoM grafo;
 
-    std::string linha;
+
     std::ifstream file("arquivo de leitura");
-    int numvertices,numaresta,portais;
-
-
 
     if(!file.is_open()){
-        std::cerr<< "erro em abrir o arquivo "<<std::endl;
+        std::cerr<<"não foi possivel abrir o arquivo "<<std::endl;
         return 1;
     }
-    
-    //copia o numero de vertices,numero de arestas,numero de portais 
-    file>>numvertices>>numaresta>>portais;
 
-    FilaAux aux(numvertices);
+    int n; // referente a vertices
+    int m; // referente a aresta
+    int k; // referente ao numero de portais
 
-    FilaAux aux2(portais);
+    // criando um grafo
+    DigrafoM grafo(n);
 
-    double x;
-    double y;
 
-    // copia a posição dos pontos com relação a plano
-    for(int i=0;i<numvertices;i++){
+
+    // fazendo a leitura da primeira linha 
+    file>>n>>m>>k;
+
+
+    // ler as posições do ponto no plano cartesiano
+
+
+    for(int i=0;i<n;i++){
+        double x,y;
         file>>x>>y;
-        aux.insert(x,y);
+        grafo.AdicionaPonto(i,x,y);
     }
 
-    // fala onde tem aresta
-    int u,v;
+    // inserindo as arestas no grafo
 
-
-    for(int i=0;i<numaresta;i++){
+    for(int i=0;i<m;i++){
+        int u;
+        int v;
         file>>u>>v;
-        // grafo.adicionaaresta(u,v);
+        grafo.AdicionaAresta(u,v);
     }
 
 
+    // inserindo os portais no grafo
+    for(int i=0;i<k;i++){
+        int u;
+        int v;
+        file>>u>>v;
+        grafo.AdicionaPortal(u,v);
+    }
+
+    // energia e  quantos portais podem ser ultilizados 
+    double s;
+    int q; 
+
+    file>>s>>q;
 
 
-    // copia a energia e limite de portal que pode ser ultilizado
+    // passando para classe a quantidade de energia,qtd de portal
+    grafo.setEnergia(s);
+    grafo.setQtdPortal(q);
 
-    // int limitPortal;
+    grafo.print();
 
-    // double energia;
-
-    // file>>energia>>limitPortal;
-
-
-
-    // calcula peso
-    // par d1,d2;
-    // int peso;
 
     
-    // d1 = aux.remove();
-    // d2 = aux.remove();
-
-    // peso = Calculapeso(d1,d2);
-
-
-
-    //usa o algoritmo de distrah para ver maior distancia
-    // Distrah d;
-
-    // d.alg(grafo,0,2);
-
 
     return 0;
 }

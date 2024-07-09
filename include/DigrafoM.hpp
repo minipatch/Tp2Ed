@@ -2,6 +2,7 @@
 #define GRAFO_HPP
 
 #include <iostream>
+#include <cmath>
 
 struct Ponto{
     double x;
@@ -11,7 +12,10 @@ struct Ponto{
 
 class DigrafoM{
     private:
+
         int _numvertice;
+        int _qtsportais;
+        double _energia;
         Ponto  *p;
         double **Matriz;
 
@@ -20,8 +24,6 @@ class DigrafoM{
         DigrafoM(int numvertices);
 
         ~DigrafoM();
-
-        void adicionarAresta();
 
         void AdicionaPonto(int vertice,double x,double y);
 
@@ -35,6 +37,12 @@ class DigrafoM{
 
         int getVertice() const;
 
+
+        void setEnergia(double s);
+
+        void setQtdPortal(int q);
+
+        double** getMatriz();
 };
 
 
