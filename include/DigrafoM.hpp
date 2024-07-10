@@ -43,6 +43,13 @@ class DigrafoM{
         void setQtdPortal(int q);
 
         double** getMatriz();
+
+        double getEnergia();
+
+        int getQtdPortais();
+
+        double* getCordenada(int vertice);
+
 };
 
 

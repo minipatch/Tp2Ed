@@ -1,48 +1,47 @@
-#ifndef FILADEPRIORIDADE_HPP
-#define FILADEPRIORIDADE_HPP
+#ifndef FILA_PRIORIDADE_HPP
+#define FILA_PRIORIDADE_HPP
 
 #include <iostream>
-#include <stdexcept>
+#include <string>
+#include <limits>
 
 struct Elemento{
-    double distancia;
     int vertice;
+    double distancia;
+    int portais_usados;
+
+    bool operator<(const Elemento& other) const {
+        return distancia > other.distancia; // Inverte para obter fila de mínimos
+    }
 };
 
-class Fila{
+class Minheap{
     private:
-        Elemento *heap;
-
+        Elemento* heap;
+        int _capacidade;
         int _tamanho;
 
-        int count;
+        void heapifydown(int i);
 
-
-        void heapifyUp(int idenx);
-
-        void heapifyDown(int index);
-
+        void heapifyUp(int i);
+    
     public:
 
-        Fila(int tamanho);
-
-        Fila();
-
-        ~Fila();
-
-        void restruturar();
-
-        void insert(Elemento element);
-
-        Elemento Limpa();
-
-        bool Vazio();
-
-        int getMin();
-
+        Minheap(int capacidade);
 
         
+        ~Minheap();
+
+        void push(Elemento e);
+
+        Elemento pop();
+
+        bool vazio() const;
 };
+
+
+
+
 
 
 

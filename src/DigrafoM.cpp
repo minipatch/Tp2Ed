@@ -27,6 +27,7 @@ DigrafoM::~DigrafoM(){
         delete[] Matriz[i];
     }
     delete[] Matriz;
+    delete[] p;
 }
 
 // adiciona os pontos nas arestas 
@@ -88,4 +89,27 @@ double** DigrafoM::getMatriz(){
     return Matriz;
 }
 
+int DigrafoM::getQtdPortais(){
+    return _qtsportais;
+}
 
+double DigrafoM::getEnergia(){
+    return _energia;
+}
+
+
+double* DigrafoM::getCordenada(int vertice){
+    static double cordenada[2];
+
+    if(vertice>= 0 && vertice<_numvertice){
+        cordenada[0] = p[vertice].x;
+        cordenada[1] = p[vertice].y;
+    }
+    else{
+        std::cerr<< "indice de vertice invalido"<<std::endl;
+        cordenada[0] = 0.0;
+        cordenada[1] = 0.0;
+    }
+
+    return cordenada;
+}
