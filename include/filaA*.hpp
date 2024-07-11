@@ -10,9 +10,6 @@ struct elementA{
     double f;
     int portais_usados;
 
-    bool operator<(const elementA& other)const{
-        return f > other.f;
-    }
 };
 
 
@@ -41,4 +38,4 @@ class Afila{
 
 
 
-#endif
+#endif 
