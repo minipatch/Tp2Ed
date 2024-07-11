@@ -3,108 +3,15 @@
 #include <sstream>
 #include "DigrafoM.hpp"
 #include "DigrafoF.hpp"
-#include <vector>
-#include <queue>
 #include <filadeprioridade.hpp>
 #include <string>
 #include <cmath>
 #include <limits>
 
+
 using namespace std;
 
-
-double Heuristica(DigrafoM& grafo,int u, int v){
-    double* ponto_u = grafo.getCordenada(u);
-    double* ponto_v = grafo.getCordenada(v);
-
-    double dx = ponto_u[0] - ponto_v[0];
-    double dy = ponto_u[1] - ponto_v[1];
-
-    return sqrt(dx*dx + dy*dy);
-}
-
-// termina o A* hoje 
-void a_star(DigrafoM& grafo, int src, int dest, double energia, int max_portais) {
-    int V = grafo.getVertice();
-    double** Matriz = grafo.getMatriz();
-
-    double* dist = new double[V * (max_portais + 1)];
-    double* f_score = new double[V * (max_portais + 1)];
-    int* predecessor = new int[V * (max_portais + 1)];
-    bool* visited = new bool[V * (max_portais + 1)];
-
-    for (int i = 0; i < V * (max_portais + 1); ++i) {
-        dist[i] = numeric_limits<double>::infinity();
-        f_score[i] = numeric_limits<double>::infinity();
-        predecessor[i] = -1;
-        visited[i] = false;
-    }
-
-    dist[src] = 0;
-    f_score[src] = Heuristica(grafo, src, dest);
-
-    Minheap pq(V * (max_portais + 1));
-    pq.push({src, f_score[src], 0});
-
-    while (!pq.vazio()) {
-        Elemento u = pq.pop();
-        int u_vertice = u.vertice;
-        double u_distancia = u.distancia;
-        int u_portais_usados = u.portais_usados;
-
-        if (u_vertice == dest && u_distancia <= energia) {
-            cout << 1 << endl;
-
-            int current = dest;
-            int current_portais = u_portais_usados;
-            while (current != -1) {
-                cout << current << " ";
-                int prev = predecessor[current * (max_portais + 1) + current_portais];
-                if (current_portais > 0 && Matriz[prev][current] == 0) {
-                    current_portais--;
-                }
-                current = prev;
-            }
-            cout << endl;
-
-            delete[] dist;
-            delete[] f_score;
-            delete[] predecessor;
-            delete[] visited;
-
-            return;
-        }
-
-        if (u_distancia > energia || visited[u_vertice * (max_portais + 1) + u_portais_usados]) {
-            continue;
-        }
-
-        visited[u_vertice * (max_portais + 1) + u_portais_usados] = true;
-
-        for (int v = 0; v < V; ++v) {
-            if (Matriz[u_vertice][v] != -1) {
-                double peso = Matriz[u_vertice][v];
-                int novos_portais_usados = u_portais_usados + (peso == 0 ? 1 : 0);
-
-                if (novos_portais_usados <= max_portais && dist[v * (max_portais + 1) + novos_portais_usados] > dist[u_vertice * (max_portais + 1) + u_portais_usados] + peso) {
-                    dist[v * (max_portais + 1) + novos_portais_usados] = dist[u_vertice * (max_portais + 1) + u_portais_usados] + peso;
-                    f_score[v * (max_portais + 1) + novos_portais_usados] = dist[v * (max_portais + 1) + novos_portais_usados] + Heuristica(grafo, v, dest);
-                    predecessor[v * (max_portais + 1) + novos_portais_usados] = u_vertice;
-                    pq.push({v, f_score[v * (max_portais + 1) + novos_portais_usados], novos_portais_usados});
-                }
-            }
-        }
-    }
-
-    cout << 0 << endl;
-
-    delete[] dist;
-    delete[] f_score;
-    delete[] predecessor;
-    delete[] visited;
-}
-
-
+// Heuristica para o algoritmo A* 
 
 
 void dijkstra(DigrafoM& grafo, int origem, int dest, double energia, int max_portais) {
@@ -204,6 +111,10 @@ void dijkstra(DigrafoM& grafo, int origem, int dest, double energia, int max_por
     delete[] visited;
 }
 
+void dijastra(DigrafoF& grafo,int origem,int destino,double energia,int max_portais_){
+
+}
+
 
 int main() {
 
@@ -274,7 +185,7 @@ int main() {
 
     dijkstra(grafo,0,n-1,s,q);
 
-    a_star(grafo,0,n-1,s,q);
+    // a_star(grafo,0,n-1,s,q);
     
     return 0;
 }
