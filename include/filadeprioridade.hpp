@@ -27,7 +27,7 @@ namespace matriz
         int _capacidade;
         int _tamanho;
 
-        void heapifydown(int i);
+        void heapifyDown(int i);
 
         void heapifyUp(int i);
 
