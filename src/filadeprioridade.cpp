@@ -1,18 +1,18 @@
 #include "filadeprioridade.hpp"
 
-Minheap::Minheap(int capacidade){
+matriz::Minheap::Minheap(int capacidade){
     this->_capacidade = capacidade;
     this->_tamanho = 0;
     heap = new Elemento[_capacidade];
 }
 
 
-Minheap::~Minheap(){
+matriz::Minheap::~Minheap(){
     delete[] heap;
 }
 
 
-void Minheap::push(Elemento e){
+void matriz::Minheap::push(Elemento e){
     if(_tamanho == _capacidade){
         return;
     }
@@ -25,7 +25,7 @@ void Minheap::push(Elemento e){
 }
 
 
-Elemento Minheap::pop(){
+matriz::Elemento matriz::Minheap::pop(){
     if(_tamanho  == 0){
         return Elemento{-1,std::numeric_limits<double>::infinity(),-1};
     }
@@ -38,12 +38,12 @@ Elemento Minheap::pop(){
 }
 
 
-bool Minheap::vazio() const{
+bool matriz::Minheap::vazio() const{
     return _capacidade == -0;
 }
 
 
-void Minheap::heapifydown(int i){
+void matriz::Minheap::heapifydown(int i){
     int smallest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -59,7 +59,7 @@ void Minheap::heapifydown(int i){
 
 }
 
-void Minheap::heapifyUp(int i) {
+void matriz::Minheap::heapifyUp(int i) {
     int parent = (i - 1) / 2;
     while (i > 0 && heap[i].distancia < heap[parent].distancia) {
         std::swap(heap[i], heap[parent]);

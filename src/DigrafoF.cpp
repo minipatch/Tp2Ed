@@ -1,120 +1,127 @@
 #include "DigrafoF.hpp"
 
+DigrafoF::DigrafoF(int numvertices)
+{
+    this->_numvertice = numvertices;
 
-No::No(int destino,int peso){
-    this->_destino  = destino;
-    this->_peso = peso;
-    this->_prox = nullptr;
+    ListadeAdjacencia = new Noadjacencia *[_numvertice];
+    for (int i = 0; i < _numvertice; i++)
+    {
+        ListadeAdjacencia[i] = nullptr;
+    }
+
+    p = new ponto[_numvertice];
 }
 
-No::No(){}
-
-Lista::Lista(){}
-
-
-DigrafoF::DigrafoF(int numvertices){
-    this->_numVertices = numvertices;
-    
-    adj = new Lista[_numVertices];
-
-    for(int i=0;i<_numVertices;i++){
-        adj[i].cabeca = nullptr;
-    }
-}
-
-DigrafoF::~DigrafoF(){
-
-    for(int i=0;i<_numVertices;i++){
-        destruirLista(adj[i].cabeca);
-    }
-    delete[] adj;
-}
-
-void DigrafoF::adicionarAresta(int origem,int destino,int peso){
-    if(origem>=0 && origem < _numVertices && destino>= 0 && destino<_numVertices){
-        No* novoNo = criaNo(destino,peso);
-
-        novoNo->_prox = adj[origem].cabeca;
-        adj[origem].cabeca = novoNo;
-    }
-    
-    else{
-        std::cerr<<"indice invalido"<<std::endl;
-    }    
-}
-
-void DigrafoF::removerAresta(int origem,int destino){
-    if(origem >= 0 && origem < _numVertices && destino >= 0 && destino< _numVertices){
-        No* atual = adj[origem].cabeca;
-        No* anterior = nullptr;
-    
-        while(atual != nullptr && atual->_destino != destino){
-            anterior = atual;
-            atual = atual->_prox;
-        }
-
-        if(atual == nullptr){
-            return; 
-        }
-
-        if(anterior == nullptr){
-            adj[origem].cabeca = atual->_prox;
-        }
-        else{
-            anterior->_prox = atual->_prox;
-        }
-        delete atual;
-    }
-    else{
-        std::cerr<<"indice invalido"<<std::endl;
-    }
-}
-
-
-bool DigrafoF::existeAresta(int origem,int destino) const{
-    if(origem>= 0 && origem<_numVertices && destino >= 0 && destino<_numVertices){
-        No* atual = adj[origem].cabeca;
-        
-        while(atual != nullptr){
-            if(atual->_destino  == destino){
-                return true;
-            }
-            atual = atual->_prox;
+DigrafoF::~DigrafoF()
+{
+    for (int i = 0; i < _numvertice; i++)
+    {
+        Noadjacencia *atual = ListadeAdjacencia[i];
+        while (atual != nullptr)
+        {
+            Noadjacencia *temp = atual;
+            atual = atual->proximo;
+            delete temp;
         }
     }
-    return false;
+    delete[] ListadeAdjacencia;
+    delete[] p;
 }
 
+void DigrafoF::adicionaPonto(int vertice, double x, double y)
+{
+    p[vertice].x = x;
+    p[vertice].y = y;
+}
 
-void DigrafoF::imprimirGrafo() const{
-    for(int i=0;i<_numVertices;i++){
-        std::cout<<  i << ": ";
-        No* atual = adj[i].cabeca;
-        
-        while(atual != nullptr){
-            std::cout<<"("<< atual->_destino<<",peso: "<<atual->_peso<<")";
-            atual = atual->_prox;
+double DigrafoF::calculaDistancia(int p1, int p2)
+{
+    double dx = p[p2].x - p[p1].x;
+    double dy = p[p2].y - p[p1].y;
+    return std::sqrt(dx * dx + dy * dy);
+}
+
+void DigrafoF::AdicionaAresta(int origem, int destino)
+{
+    if (origem >= 0 && origem < _numvertice && destino >= 0 && destino < _numvertice)
+    {
+        double peso = calculaDistancia(origem, destino);
+        Noadjacencia *novoNo = new Noadjacencia{destino, peso, ListadeAdjacencia[origem]};
+        ListadeAdjacencia[origem] = novoNo;
+    }
+    else
+    {
+        std::cerr << "Vertices invalidas" << std::endl;
+    }
+}
+
+void DigrafoF::AdicionaPortal(int origem, int destino)
+{
+    if (origem >= 0 && origem < _numvertice && destino >= 0 && destino < _numvertice)
+    {
+        Noadjacencia *novoNo = new Noadjacencia{destino, 0, ListadeAdjacencia[origem]};
+        ListadeAdjacencia[origem] = novoNo;
+    }
+    else
+    {
+        std::cerr << "Vertices invalidas" << std::endl;
+    }
+}
+
+void DigrafoF::print() const
+{
+    for (int i = 0; i < _numvertice; i++)
+    {
+        std::cout << "Vertice " << i << ": ";
+        Noadjacencia *atual = ListadeAdjacencia[i];
+        while (atual != nullptr)
+        {
+            std::cout << "(" << atual->destino << ", " << atual->peso << ") ";
+            atual = atual->proximo;
         }
-
-        std::cout<< std::endl;
+        std::cout << std::endl;
     }
 }
 
-No* DigrafoF::criaNo(int destino,int peso){
-    No* novo = new No;
-
-
-    novo->_destino = destino;
-    novo->_peso = peso;
-    novo->_prox = nullptr;
-
-    return novo;  
+int DigrafoF::getVerice() const
+{
+    return _numvertice;
 }
 
-void DigrafoF::destruirLista(No* no){
-    while(no != nullptr){
-        No* aux = no;
-        no  = no->_prox;
-        delete aux;
+void DigrafoF::setQtdPortal(int q)
+{
+    _qtsportais = q;
+}
+
+void DigrafoF::setEnergia(double s)
+{
+    _energia = s;
+}
+
+int DigrafoF::getQtdPortal()
+{
+    return _qtsportais;
+}
+
+double DigrafoF::getEnergia()
+{
+    return _energia;
+}
+
+double *DigrafoF::getCordenada(int vertice) const
+{
+    static double cordenada[2];
+    if (vertice >= 0 && vertice < _numvertice)
+    {
+        cordenada[0] = p[vertice].x;
+        cordenada[1] = p[vertice].y;
     }
+    else
+    {
+        std::cerr << "Indice de vertice invalido" << std::endl;
+        cordenada[0] = 0.0;
+        cordenada[1] = 0.0;
+    }
+    return cordenada;
 }

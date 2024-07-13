@@ -20,10 +20,9 @@ $(OBJ_FOLDER)%.o: $(SRC_FOLDER)%.cpp
 
 all: $(OBJ)
 	$(CC) $(CXXFLAGS) -o $(BIN_FOLDER)$(TARGET)$(OBJ)
-	@$(BIN_FOLDER)$(TARGET) 
 
 clean:
 	@rm -rf $(OBJ_FOLDER)* $(BIN_FOLDER)*
 
-run:
+run: clean all
 	@$(BIN_FOLDER)$(TARGET)

@@ -1,23 +1,17 @@
-#ifndef FILA_PRIORIDADE_HPP
-#define FILA_PRIORIDADE_HPP
+#ifndef FILA_HPP
+#define FILA_HPP
 
 #include <iostream>
-#include <string>
 #include <limits>
 
-namespace matriz
+namespace direct
 {
-
     struct Elemento
     {
         int vertice;
         double distancia;
+        double energia_restante;
         int portais_usados;
-
-        bool operator<(const Elemento &other) const
-        {
-            return distancia > other.distancia; // Inverte para obter fila de mínimos
-        }
     };
 
     class Minheap
@@ -27,7 +21,8 @@ namespace matriz
         int _capacidade;
         int _tamanho;
 
-        void heapifydown(int i);
+        void heapifyDown(int i);
+        
 
         void heapifyUp(int i);
 
@@ -35,14 +30,17 @@ namespace matriz
         Minheap(int capacidade);
 
         ~Minheap();
+        
 
-        void push(Elemento e);
+        void push(const Elemento &e);
+        
 
         Elemento pop();
 
         bool vazio() const;
+        
     };
 
-}
+};
 
 #endif

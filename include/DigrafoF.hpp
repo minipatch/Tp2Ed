@@ -1,63 +1,42 @@
-#ifndef DIGRAFOF
-#define DIGRAFOf
-
 #include <iostream>
+#include <cmath>
+#include <limits>
+#include <fstream>
 
-
-class No{
-    private:
-        int _destino;
-        No* _prox;
-        int _peso;
-    
-    public:
-        No();
-
-        No(int destino,int peso);
-
-        friend class Lista;
-        friend class DigrafoF;
+struct Noadjacencia
+{
+    int destino;
+    double peso;
+    Noadjacencia *proximo;
 };
 
-class Lista{
-    private:
-        No* cabeca;
-
-    public:
-        Lista();
-        
-        friend class No;
-        friend class DigrafoF;
+struct ponto
+{
+    double x, y;
 };
 
+class DigrafoF
+{
+private:
+    int _numvertice;
+    int _qtsportais;
+    double _energia;
+    ponto *p;
 
-class DigrafoF{
-    private:
+public:
+    Noadjacencia **ListadeAdjacencia;
 
-        int _numVertices;
-
-        Lista *adj;
-
-        No* criaNo(int destino,int peso);
-
-        void destruirLista(No* no);
-
-    public:
-        DigrafoF(int numvertices);
-
-        ~DigrafoF();
-
-        void adicionarAresta(int origem,int destino,int peso);
-
-        void removerAresta(int origem,int destino);
-        
-        bool existeAresta(int origem,int destino) const;
-
-        void imprimirGrafo() const;        
+    DigrafoF(int numvertices);
+    ~DigrafoF();
+    void adicionaPonto(int vertice, double x, double y);
+    void AdicionaAresta(int origem, int destino);
+    void AdicionaPortal(int origem, int destino);
+    double calculaDistancia(int p1, int p2);
+    void print() const;
+    int getVerice() const;
+    void setQtdPortal(int q);
+    void setEnergia(double s);
+    int getQtdPortal();
+    double getEnergia();
+    double *getCordenada(int vertice) const;
 };
-
-
-
-
-
-#endif 
