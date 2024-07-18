@@ -1,4 +1,4 @@
-#include "filaA*.hpp"
+#include "filaA.hpp"
 
 Afila::Afila(int capacidade){
     this->_tamanho = 0;

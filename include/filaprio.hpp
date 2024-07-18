@@ -4,8 +4,10 @@
 #include <iostream>
 #include <limits>
 
+// Namespace para encapsular as definições e evitar conflitos de nomes.
 namespace direct
 {
+    // Estrutura que representa um elemento na heap mínima.
     struct Elemento
     {
         int vertice;
@@ -14,6 +16,7 @@ namespace direct
         int portais_usados;
     };
 
+    // Classe que implementa uma heap mínima (MinHeap).
     class Minheap
     {
     private:
@@ -21,24 +24,25 @@ namespace direct
         int _capacidade;
         int _tamanho;
 
+        // Move um elemento para baixo na heap para restaurar a propriedade da heap mínima.
         void heapifyDown(int i);
-        
 
+        // Move um elemento para cima na heap para restaurar a propriedade da heap mínima.
         void heapifyUp(int i);
 
     public:
         Minheap(int capacidade);
 
         ~Minheap();
-        
 
+        // Adiciona um novo elemento à heap.
         void push(const Elemento &e);
-        
 
+        // Remove e retorna o elemento de menor valor da heap.
         Elemento pop();
 
+        // Verifica se a heap está vazia.
         bool vazio() const;
-        
     };
 
 };
